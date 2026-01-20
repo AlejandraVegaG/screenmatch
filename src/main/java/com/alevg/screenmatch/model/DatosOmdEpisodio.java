@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public record DatosOmdEpisodio(
         @JsonAlias("Title") String titulo,
         @JsonAlias("Episode") Integer numeroEpisodio,
-        @JsonAlias("imdRating") String evaluacion,
+        @JsonAlias("imdbRating") String evaluacion,
         @JsonAlias("Released") String fechaDeLanzamiento
         ) {
 }

@@ -1,6 +1,7 @@
 package com.alevg.screenmatch;
 
 import com.alevg.screenmatch.model.DatosOmdEpisodio;
+import com.alevg.screenmatch.model.DatosOmdTemporada;
 import com.alevg.screenmatch.model.DatosOmdbSerie;
 import com.alevg.screenmatch.service.ConsumoAPI;
 import com.alevg.screenmatch.service.ConvierteDatos;
@@ -9,6 +10,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 @SpringBootApplication
@@ -40,6 +43,16 @@ public class ScreenmatchApplication implements CommandLineRunner {
         var datosEpisodios = conversorDatos.obtenerDatos(json, DatosOmdEpisodio.class);
 
         System.out.println(datosEpisodios);
+
+        // Temporadas
+        List<DatosOmdTemporada> temporadas = new ArrayList<>();
+        for (int i = 1; i <= datos.totalTemporadas(); i++) { //datos es de la serie
+            json = consumoApi.obtenerDatos("http://www.omdbapi.com/?t=icarly&Season=" + i + "&apikey=" + API_KEY);
+            var datosTemporadas = conversorDatos.obtenerDatos(json, DatosOmdTemporada.class);
+            temporadas.add(datosTemporadas);
+        }
+        temporadas.forEach(System.out::println);
+
 
     }
 }
